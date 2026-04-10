@@ -1,16 +1,3 @@
-
-#
-# Sean las VAs U,W_1,W_2,W_3 \sim \mathcal{U}(0,1)
-# Sea X = suma de los numeros aleatorios respectivamente
-# 
-# P(X\le 2) = P(U\lt 1/3)\cdot P(W_1+W_2\le 2) + P(U\ge 1/3)\cdot P(W_1+W_2+W_3\le 2)
-# 
-# tomando
-#     P(W_1+W_2\le 2) como 1-P(W_1+W_2\gt 2)
-#     P(W_1+W_2+W_3\le 2) como 1-P(W_1+W_2+W_3\gt 2)
-# Se calcula de la misma manera que le ejer 2a
-#
-
 import random,sys
 
 def ejercicio3b(iterations: int):
@@ -32,13 +19,14 @@ def ejercicio3b(iterations: int):
 
 
 if __name__ == "__main__":
-    n = int(sys.argv[1])
     if len(sys.argv) != 2:
         print("Usage: python script.py <iterations>")
         sys.exit(1)
-    elif n <= 0:
+    elif int(sys.argv[1]) <= 0:
         print("Iterations must be a positive integer.")
         sys.exit(1)
+        
+    n = int(sys.argv[1])
     ejercicio3b(n)
 
 # Para n=100            obtuvimos 0.9400
