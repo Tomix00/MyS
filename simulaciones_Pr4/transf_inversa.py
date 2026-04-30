@@ -2,7 +2,7 @@ from random import random
 import math
 
 class discreteGenerators:
-    def udiscrete01(n: int) -> int:
+    def udiscrete1n(n: int) -> int:
         '''
         Via the inverse transform method, generates a discrete random
         variable uniformly distributed between 1 and n.
