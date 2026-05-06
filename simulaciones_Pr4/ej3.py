@@ -3,8 +3,8 @@ import math
 from transf_inversa import discreteGenerators as dg
 
 def generar_suma():
-    dado1 = dg.udiscretemk(1,6)
-    dado2 = dg.udiscretemk(1,6)
+    dado1 = dg.udiscrete1n(6)
+    dado2 = dg.udiscrete1n(6)
     return dado1 + dado2
 
 def simular():
@@ -30,7 +30,13 @@ def estimar(repeticiones):
 
     return media, desviacion, p_ge_15, p_le_9
 
-print("100 repeticinoes:", estimar(100))
-print("1.000 repeticiones:", estimar(1000))
-print("10.000 repeticiones:", estimar(10000))
-print("100.000 repeticiones:", estimar(100000))
+if __name__ == "__main__":
+    repeticiones_lista = [100, 1000, 10000, 100000]
+    
+    print("Resultados de la simulación:\n")
+    print(f"{'Reps':>8} | {'Media':>8} | {'Desvío':>8} | {'P(N>=15)':>10} | {'P(N<=9)':>10}")
+    print("-" * 58)
+    
+    for reps in repeticiones_lista:
+        media, desvio, prob_ge15, prob_le9 = estimar(reps)
+        print(f"{reps:8d} | {media:8.2f} | {desvio:8.2f} | {prob_ge15:10.4f} | {prob_le9:10.4f}")
