@@ -97,6 +97,8 @@ class discreteGenerators:
             j = int(lam)
             while u < f:
                 f -= p
+                if(j == 0):
+                    break
                 p *= lam / j
                 j -= 1
             return j + 1
