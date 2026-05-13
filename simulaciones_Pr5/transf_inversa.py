@@ -175,7 +175,7 @@ class continousGenerators:
         U = 1
         for _ in range(n):
             U *= 1 - random()
-        return -log(U)/lam
+        return -math.log(U)/lam
 
 
 class permutation:
