@@ -1,45 +1,54 @@
-import numpy as np
-import os
+import random
+import math
 
-def ejercicio2_i_a():
-    np.random.seed(42)
-    n = 0
-    suma = 0.0
-    suma_cuad = 0.0
-    while True:
-        u = np.random.uniform(0, 1)
-        f = np.exp(u) / np.sqrt(2 * u)
-        n += 1
-        suma += f
-        suma_cuad += f * f
-        estimador = suma / n
-        var_estimador = (suma_cuad / n - estimador**2) / n
-        if n >= 100 and np.sqrt(var_estimador) < 0.01:
-            break
-    return estimador
+def ejercicio_2_i():
+    d = 0.01
+    n = 1
+    x = random.uniform(0, 1)
+    f = math.exp(x) / math.sqrt(2 * x)
+    mean = f
+    scuad = 0.0
 
-def ejercicio2_ii_a():
-    np.random.seed(42)
-    n = 0
-    suma_x2 = 0.0
-    suma_x2_cuad = 0.0
-    while True:
-        x = np.random.normal(0, 1/np.sqrt(2))
-        x2 = x * x
+    while n <= 100 or math.sqrt(scuad / n) >= d:
         n += 1
-        suma_x2 += x2
-        suma_x2_cuad += x2 * x2
-        estimador_x2 = suma_x2 / n
-        var_estimador_x2 = (suma_x2_cuad / n - estimador_x2**2) / n
-        if n >= 100 and np.sqrt(var_estimador_x2) < 0.01:
-            break
-    integral = np.sqrt(np.pi) * estimador_x2
-    return integral
+        x = random.uniform(0, 1)
+        f = math.exp(x) / math.sqrt(2 * x)
+        mean_ant = mean
+        mean = mean_ant + (f - mean_ant) / n
+        scuad = scuad * (1 - 1 / (n - 1)) + n * (mean - mean_ant) ** 2
+
+    return n, mean, math.sqrt(scuad / n)
+
+def ejercicio_2_ii():
+    d = 0.01
+    n = 1
+    u = random.uniform(0, 1)
+    t = u / (1 - u)
+    f = (u ** 2 / (1 - u) ** 4) * math.exp(-(u / (1 - u)) ** 2)
+    mean = f
+    scuad = 0.0
+
+    while n <= 100 or math.sqrt(scuad / n) >= d:
+        n += 1
+        u = random.uniform(0, 1)
+        t = u / (1 - u)
+        f = (u ** 2 / (1 - u) ** 4) * math.exp(-(u / (1 - u)) ** 2)
+        mean_ant = mean
+        mean = mean_ant + (f - mean_ant) / n
+        scuad = scuad * (1 - 1 / (n - 1)) + n * (mean - mean_ant) ** 2
+
+    return n, 2 * mean, math.sqrt(scuad / n)
 
 if __name__ == "__main__":
-    os.system('clear')
-    a = ejercicio2_i_a()
-    b = ejercicio2_ii_a()
 
-    print(f"a-i) Valor estaimdo: {a}\n")
-    print(f"a-ii) Valor estimado: {b}\n")
+    print("Ejercicio 2 i) ∫₀¹ e^x/√(2x) dx")
+    n1, est1, err1 = ejercicio_2_i()
+    print(f"n = {n1}")
+    print(f"Estimación = {est1:.6f}")
+    print(f"Desviación = {err1:.6f}\n")
+
+    print("Ejercicio 2 ii) ∫₋∞^∞ x² exp(-x²) dx = 2∫₀^∞ x² exp(-x²) dx")
+    n2, est2, err2 = ejercicio_2_ii()
+    print(f"n = {n2}")
+    print(f"Estimación = {est2:.6f}")
+    print(f"Desviación = {err2:.6f}")
