@@ -117,18 +117,13 @@ class discreteGenerators:
         '''
         f = (1 - p) ** n
         u = random()
-        if u >= f:
-            j = 0
-            while u >= f:
-                j += 1
-                f += math.comb(n, j) * (p ** j) * ((1 - p) ** (n - j))
-            return j - 1
-        else:
-            j = n
-            while u < f:
-                f -= math.comb(n, j) * (p ** j) * ((1 - p) ** (n - j))
-                j -= 1
-            return j + 1
+        if u < f:
+            return 0
+        for j in range(1, n + 1):
+            f += math.comb(n, j) * (p ** j) * ((1 - p) ** (n - j))
+            if u < f:
+                return j
+        return n
     
 
 class continousGenerators:
