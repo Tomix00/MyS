@@ -28,7 +28,7 @@ def ejercicio3b():
         if U < acum:
             return cg.exponentialL(lambdas[i])
 
-def simulate():
+def ejercicio3_runner():
     n = 10000
     suma = 0
     for _ in range(n):
@@ -40,4 +40,4 @@ def simulate():
     print(f"Media estiamda con {n} repeticiones: {media_estimada:.4f}")
 
 if __name__ == "__main__":
-    simulate()
+    ejercicio3_runner()

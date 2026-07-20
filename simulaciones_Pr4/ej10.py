@@ -1,7 +1,7 @@
 from random import random
 from transf_inversa import discreteGenerators as dg
 
-def generar_X():
+def ejercicio10():
     u = random()
     if u < 0.5:
         return dg.geometric(0.5)   # Geom(1/2)
@@ -12,7 +12,7 @@ def generar_X():
 n = 1000
 suma = 0
 for _ in range(n):
-    suma += generar_X()
+    suma += ejercicio10()
 
 media_estimada = suma / n
 esperanza_exacta = 2.5

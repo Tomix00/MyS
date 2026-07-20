@@ -2,7 +2,7 @@
 import sys
 
 
-def estimate_percentage_in_sphere(seed: int, n_points: int, m: int = 2**31) -> float:
+def ejercicio1(seed: int, n_points: int, m: int = 2**31) -> float:
     """
     Estima el porcentaje de puntos (u1,u2,u3), (u4,u5,u6), ...
     que caen dentro de la esfera de centro (M/2,M/2,M/2)
@@ -27,7 +27,7 @@ def estimate_percentage_in_sphere(seed: int, n_points: int, m: int = 2**31) -> f
 
     return 100.0 * inside / n_points
 
-def epis_2(seed: int, n_points: int, m:int = 2**31) -> float:
+def ejercicio2(seed: int, n_points: int, m:int = 2**31) -> float:
     """
     Estima el porcentaje de puntos (u1,u2,u3), (u4,u5,u6), ...
     que caen dentro de la esfera de centro (M/2,M/2,M/2)
@@ -62,12 +62,12 @@ def main():
         print("Seed and number of points must be positive integers.")
         sys.exit(1)
 
-    percentage = estimate_percentage_in_sphere(seed=seed, n_points=n_points)
+    percentage = ejercicio1(seed=seed, n_points=n_points)
     print(f"Using RANDU generator:")
     print(f"Puntos simulados: {n_points}")
     print(f"Porcentaje estimado dentro de la esfera: {percentage:.6f}%")
 
-    percentage2 = epis_2(seed=seed, n_points=n_points)
+    percentage2 = ejercicio2(seed=seed, n_points=n_points)
     print(f"Using RANDU2 generator:")
     print(f"Puntos simulados: {n_points}")
     print(f"Porcentaje estimado dentro de la esfera: {percentage2:.6f}%")

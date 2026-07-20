@@ -1,29 +1,6 @@
 import sys
 import numpy as np
 
-"""
-Enunciado: Un supermercado posee 3 cajas. Por una cuestión de ubicación, el
-de los clientes eligen la caja 1 para pagar, el  la caja 2, y el  la caja 3.
-El tiempo que espera una persona para ser atendida en cada caja distribuye
-exponencial con medias de 3, 4 y 5 minutos respectivamente.
-
-a) ¿Cuál es la probabilidad de que un cliente espere menos de 4 minutos
-    para ser atendido?
-b) Si el cliente tuvo que esperar más de 4 minutos. ¿Cuál es la probabilidad
-    de que el cliente haya elegido cada una de las cajas?
-c) Simule el problema y estime las probabilidades anteriores con 1000
-    iteraciones.
-
-a)
-    P(T<4) = P(T<4|C1)*P(C1) + P(T<4|C2)*P(C2) + P(T<4|C3)*P(C3)
-
-b)
-    P(C1|T>4) = P(T>4|C1)*P(C1) / P(T>4)
-    P(C2|T>4) = P(T>4|C2)*P(C2) / P(T>4)
-    P(C3|T>4) = P(T>4|C3)*P(C3) / P(T>4)
-
-"""
-
 def ejercicio4c(n: int):
     menor4 = 0
     mayor4_por_caja = [0, 0, 0]

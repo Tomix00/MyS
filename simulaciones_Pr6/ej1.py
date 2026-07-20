@@ -1,7 +1,7 @@
 import random
 import math
 
-def ejercicio_1():
+def ejercicio1():
     # parameters
     d = 0.1
     mu_teo = 0
@@ -27,5 +27,5 @@ def ejercicio_1():
 
 
 if __name__ == "__main__":
-    n, mean, var = ejercicio_1()
+    n, mean, var = ejercicio1()
     print(f"n: {n} \nmean: {mean} \nvar: {var}\n")

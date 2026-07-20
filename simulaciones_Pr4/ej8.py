@@ -8,15 +8,15 @@ lam = 0.7
 n = 1000
 
 # Precalcular probabilidades de Poisson truncada
-def probs_truncada(lam, k):
+def truncated_probs(lam, k):
     terms = [lam**i / math.factorial(i) for i in range(k + 1)]
     S = sum(terms)
     return [t / S for t in terms]
 
-probs = probs_truncada(lam, k)
+probs = truncated_probs(lam, k)
 
 # a) Transformada inversa
-def inversa_truncada():
+def truncated_inverse():
     # Ordenar de mayor a menor
     pares = sorted(zip(probs, range(k+1)), reverse=True)
     probs_ord = [p for p, _ in pares]
@@ -35,7 +35,7 @@ def inversa_truncada():
     return vals_ord[-1]
 
 # a) Aceptación y rechazo (Y ~ Poisson(λ))
-def rechazo_truncada():
+def truncated_rejection():
     S = sum(lam**i / math.factorial(i) for i in range(k + 1))
     prob_aceptar = math.exp(-lam) * S
     
@@ -45,14 +45,14 @@ def rechazo_truncada():
             return Y
 
 # b) Estimar P(X > 2)
-def estimar(metodo):
+def ejercicio8(metodo):
     return sum(1 for _ in range(n) if metodo() > 2) / n
 
 p_exacta = sum(probs[i] for i in range(3, k + 1))
 
 print(f"P(X > 2) exacta: {p_exacta:.6f}")
-print(f"Estimación transformada inversa: {estimar(inversa_truncada):.6f}")
-print(f"Estimación aceptación y rechazo: {estimar(rechazo_truncada):.6f}")
+print(f"Estimación transformada inversa: {ejercicio8(truncated_inverse):.6f}")
+print(f"Estimación aceptación y rechazo: {ejercicio8(truncated_rejection):.6f}")
 
 # c) Pseudocódigo para variable truncada en [a, b]
 print("\n" + "="*50)

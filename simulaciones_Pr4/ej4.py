@@ -17,7 +17,7 @@ urna = []
 for i, p in enumerate(probs, start=1):
     urna.extend([i] * int(p * 100))
 
-def rechazo_cmin():
+def rejection_cmin():
     # p_j / (1/10) <= c
     # para todo j, c >= 10 * max{p_j} = 10 * 0.14 = 1.4
     c = 1.4
@@ -27,7 +27,7 @@ def rechazo_cmin():
         if U < (10 * probs[Y-1]) / c :
             return Y
         
-def rechazo_c3():
+def rejection_c3():
     c = 3
     while True:
         Y = dg.udiscrete1n(10)
@@ -35,23 +35,23 @@ def rechazo_c3():
         if U < (10 * probs[Y-1]) / c :
             return Y
         
-def transformada_inversa():
+def inverse_transform():
     U = random.random()
     for i, f in enumerate(F):
         if U < f:
             return i + 1
     return 10
 
-def metodo_urna():
+def urn_method():
     indice = dg.udiscrete1n(100) - 1
     return urna[indice]
 
-def comparar(n=10000):
+def ejercicio4(n=10000):
     metodos = [
-        ("Rechazo c=1.4", rechazo_cmin),
-        ("Rechazo c=3", rechazo_c3),
-        ("Transformada Inversa", transformada_inversa),
-        ("Metodo Urna", metodo_urna)
+        ("Rechazo c=1.4", rejection_cmin),
+        ("Rechazo c=3", rejection_c3),
+        ("Transformada Inversa", inverse_transform),
+        ("Metodo Urna", urn_method)
     ]
 
     print(f"Compararcion con {n} simulaciones:")
@@ -69,7 +69,7 @@ def comparar(n=10000):
 if __name__ == "__main__":
     print("Generación de 5 valores con cada método:\n")
     for _ in range(5):
-        print(f"c=1.4: {rechazo_cmin():2d}, c=3: {rechazo_c3():2d}, "
-              f"inversa: {transformada_inversa():2d}, urna: {metodo_urna():2d}")
+        print(f"c=1.4: {rejection_cmin():2d}, c=3: {rejection_c3():2d}, "
+              f"inversa: {inverse_transform():2d}, urna: {urn_method():2d}")
     
-    comparar(10000)
+    ejercicio4(10000)

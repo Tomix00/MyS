@@ -8,12 +8,12 @@ n = 10
 p = 0.3
 
 # ========== MÉTODO I: Transformada inversa ==========
-def binomial_inversa(n, p):
+def binomial_inverse(n, p):
     """Usa discreteGenerators.binomial de la clase"""
     return dg.binomial(n, p)
 
 # ========== MÉTODO II: Simulación de n ensayos Bernoulli ==========
-def binomial_ensayos(n, p):
+def binomial_trials(n, p):
     """Simula n ensayos Bernoulli y cuenta éxitos"""
     exitos = 0
     for _ in range(n):
@@ -22,7 +22,7 @@ def binomial_ensayos(n, p):
     return exitos
 
 # ========== a) Comparación de eficiencia ==========
-def comparar_eficiencia(n_simulaciones=10000):
+def ejercicio5a(n_simulaciones=10000):
     print(f"\n{'='*65}")
     print(f"a) Comparación para Bin({n}, {p}) con {n_simulaciones}\
            simulaciones")
@@ -30,12 +30,12 @@ def comparar_eficiencia(n_simulaciones=10000):
     
     # Método I: Transformada inversa
     inicio = time.time()
-    muestras_inv = [binomial_inversa(n, p) for _ in range(n_simulaciones)]
+    muestras_inv = [binomial_inverse(n, p) for _ in range(n_simulaciones)]
     tiempo_inv = time.time() - inicio
     
     # Método II: n ensayos Bernoulli
     inicio = time.time()
-    muestras_ens = [binomial_ensayos(n, p) for _ in range(n_simulaciones)]
+    muestras_ens = [binomial_trials(n, p) for _ in range(n_simulaciones)]
     tiempo_ens = time.time() - inicio
     
     print(f"{'Método':<35} | {'Tiempo (s)':>10}")
@@ -54,7 +54,7 @@ def comparar_eficiencia(n_simulaciones=10000):
     return muestras_inv, muestras_ens
 
 # ========== b) Análisis de resultados ==========
-def analizar_muestras(muestras, metodo_nombre):
+def analyze_samples(muestras, metodo_nombre):
     """Calcula el valor con mayor ocurrencia y proporciones de 0 y 10"""
     frecuencias = [0] * (n + 1)
     for x in muestras:
@@ -80,20 +80,20 @@ def analizar_muestras(muestras, metodo_nombre):
     return moda, prob_moda, prob_0, prob_10
 
 # ========== c) Valores teóricos de la Binomial ==========
-def probabilidad_teorica(k, n, p):
+def theoretical_probability(k, n, p):
     """Calcula P(X=k) para Bin(n,p)"""
     return math.comb(n, k) * (p**k) * ((1-p)**(n-k))
 
-def mostrar_teoricos():
+def show_theoretical():
     print(f"\n{'='*65}")
     print("c) Valores teóricos de Bin(10, 0.3)")
     print(f"{'='*65}")
     
     # Valor más probable (moda)
     moda_teorica = int((n + 1) * p)
-    prob_moda_teorica = probabilidad_teorica(moda_teorica, n, p)
-    prob_0_teorica = probabilidad_teorica(0, n, p)
-    prob_10_teorica = probabilidad_teorica(10, n, p)
+    prob_moda_teorica = theoretical_probability(moda_teorica, n, p)
+    prob_0_teorica = theoretical_probability(0, n, p)
+    prob_10_teorica = theoretical_probability(10, n, p)
     
     print(f"Valor con mayor ocurrencia (moda): {moda_teorica}")
     print(f"  Probabilidad teórica: {prob_moda_teorica:.4f}")
@@ -103,8 +103,8 @@ def mostrar_teoricos():
     return moda_teorica, prob_moda_teorica, prob_0_teorica, prob_10_teorica
 
 # ========== COMPARACIÓN CON TEÓRICOS ==========
-def comparar_con_teoricos(muestras_inv, muestras_ens):
-    moda_teo, prob_moda_teo, prob_0_teo, prob_10_teo = mostrar_teoricos()
+def compare_with_theoretical(muestras_inv, muestras_ens):
+    moda_teo, prob_moda_teo, prob_0_teo, prob_10_teo = show_theoretical()
     
     # Calcular frecuencias observadas
     freqs_inv = [muestras_inv.count(i)/len(muestras_inv) for i in range(n+1)]
@@ -129,15 +129,15 @@ def comparar_con_teoricos(muestras_inv, muestras_ens):
 # ========== EJECUCIÓN PRINCIPAL ==========
 if __name__ == "__main__":
     # Parte a: Comparar eficiencia
-    muestras_inv, muestras_ens = comparar_eficiencia(10000)
+    muestras_inv, muestras_ens = ejercicio5a(10000)
     
     # Parte b: Analizar resultados
     print(f"\n{'='*65}")
     print("b) Resultados observados")
     print(f"{'='*65}")
     
-    analizar_muestras(muestras_inv, "Método I - Transformada inversa:")
-    analizar_muestras(muestras_ens, "Método II - n ensayos Bernoulli:")
+    analyze_samples(muestras_inv, "Método I - Transformada inversa:")
+    analyze_samples(muestras_ens, "Método II - n ensayos Bernoulli:")
     
     # Parte c: Comparar con teóricos
-    comparar_con_teoricos(muestras_inv, muestras_ens)
+    compare_with_theoretical(muestras_inv, muestras_ens)

@@ -18,7 +18,7 @@ for p in probs_ord:
     acum += p
     F_acum.append(acum)
 
-def transformada_inversa():
+def inverse_transform():
     U = random.random()
     for i, F in enumerate(F_acum):
         if U < F:
@@ -26,13 +26,13 @@ def transformada_inversa():
     return vals_ord[-1]
 
 # II) Aceptación y rechazo con Y ~ Bin(4, 0.45)
-def prob_binomial(k, n=4, p=0.45):
+def binomial_prob(k, n=4, p=0.45):
     return math.comb(n, k) * (p**k) * ((1-p)**(n-k))
 
-q_probs = [prob_binomial(k) for k in range(5)]
+q_probs = [binomial_prob(k) for k in range(5)]
 c = max(p / q for p, q in zip(probs, q_probs)) * 1.0001
 
-def aceptacion_rechazo():
+def acceptance_rejection():
     while True:
         Y = gd.binomial(4, 0.45)
         U = random.random()
@@ -40,15 +40,15 @@ def aceptacion_rechazo():
             return Y
 
 # III) Comparación
-def comparar(n=10000):
+def ejercicio6(n=10000):
     # Transformada inversa
     inicio = time.time()
-    muestras_inv = [transformada_inversa() for _ in range(n)]
+    muestras_inv = [inverse_transform() for _ in range(n)]
     tiempo_inv = time.time() - inicio
     
     # Aceptación y rechazo
     inicio = time.time()
-    muestras_rech = [aceptacion_rechazo() for _ in range(n)]
+    muestras_rech = [acceptance_rejection() for _ in range(n)]
     tiempo_rech = time.time() - inicio
     
     print(f"Transformada inversa: {tiempo_inv:.4f}s")
@@ -66,4 +66,4 @@ def comparar(n=10000):
         print(f"{i:5d} | {obs_inv:8.4f} | {obs_rech:8.4f} | {probs[i]:8.4f}")
 
 if __name__ == "__main__":
-    comparar(10000)
+    ejercicio6(10000)

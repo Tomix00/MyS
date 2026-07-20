@@ -15,7 +15,7 @@ from random import random
 # Así, QueDevuelve(0.05, 0.2) genera M ~ Geom(0.24).
 # -------------------------------------------------------------------
 
-def unica_geom():
+def ejercicio12():
     u = random()
     p = 0.24
     return int(math.log(1 - u) / math.log(1 - p)) + 1

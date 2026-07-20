@@ -1,7 +1,7 @@
 import sys
 import numpy as np
 
-def simular_N():
+def simulate_trial():
     sum = 0
     count = 0
 
@@ -11,8 +11,8 @@ def simular_N():
     return count
 
 
-def estimar(n: int):
-    return np.mean([simular_N() for _ in range(n)])
+def ejercicio7(n: int):
+    return np.mean([simulate_trial() for _ in range(n)])
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
@@ -23,7 +23,7 @@ if __name__ == "__main__":
         sys.exit(1)
     N = int(sys.argv[1])
 
-    valor_estimado = estimar(N)
+    valor_estimado = ejercicio7(N)
 
     print(f"En {N} iteraciones:")
     print(f"Valor estimado de E[N]: {valor_estimado}")

@@ -2,7 +2,7 @@ import numpy as np
 import sys
 
 
-def valorpi(n: int):
+def ejercicio6(n: int):
     hit = 0
     for _ in range(n):
         u = 2 * np.random.rand() - 1
@@ -21,7 +21,7 @@ if __name__ == "__main__":
         sys.exit(1)
     n = int(sys.argv[1])
 
-    pi_estimate = valorpi(n)
+    pi_estimate = ejercicio6(n)
     print(f"En {n} iteraciones:")
     print(f"Valor estimado de pi: {pi_estimate}")
     print(f"Valor real de pi en numpy: {np.pi}")

@@ -1,7 +1,7 @@
 from random import random
 from transf_inversa import continousGenerators as cg
 
-def generar_X():
+def ejercicio4():
     Y = cg.exponential1()
     
     U = random()
