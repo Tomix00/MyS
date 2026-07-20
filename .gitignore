@@ -3,3 +3,7 @@ __pycache__/
 
 #python virtual enviorement
 .venv
+
+#opencode
+.opencode
+AGENTS.md
