@@ -127,6 +127,24 @@ Cada subejercicio transforma una integral definida en una esperanza y la estima 
 
 ---
 
+### ej8.py — Máximo producto de uniformes antes de caer bajo e⁻³
+
+**`simulate_trial()`:**
+1. Inicializa `prod = 1.0`, `n = 0`.
+2. Mientras `prod >= exp(-3)`: multiplica por `U ~ Uniforme(0,1)`, incrementa `n`.
+3. Retorna `n - 1` (el máximo número de uniformes cuyo producto ≥ e⁻³).
+- Relación con proceso de Poisson: tomando logaritmo, `-ln(producto) = ∑ -ln(Uᵢ)` es suma de Exp(1); el máximo n tal que la suma ≤ 3. Por lo tanto N ~ Poisson(3), con E[N] = 3.
+
+**`ejercicio8a(n)`:**
+- Ejecuta `simulate_trial()` n veces y retorna el promedio (estimación de E[N] = 3).
+
+**`ejercicio8b(n)`:**
+- Ejecuta `simulate_trial()` n veces, cuenta frecuencias para i=0..6, retorna proporciones (estima P(N=i) para Poisson(3)).
+
+**Uso:** `python ej8.py <N> [opcion]` donde opcion=1 estima E[N], opcion=2 estima P(N=i).
+
+---
+
 ### ej9.py — Juego de dados
 
 **`ejercicio9b(n)`:**

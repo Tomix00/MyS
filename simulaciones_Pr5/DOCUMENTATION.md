@@ -147,3 +147,87 @@ Cada función calcula F(x) analíticamente, invierte y aplica la transformada in
 **`ejercicio8a()`:** Ejecuta los 3 métodos con 10000 repeticiones, mide tiempos y medias (esperanza teórica E[X] = 1).
 
 **`ejercicio8b()`:** Estima `P(X > 1.5)` con cada método y compara con valor teórico `0.125`.
+
+---
+
+### ej9.py — Normal estándar (3 métodos)
+
+**`metodo_ross(n)` — Box-Muller:**
+1. Genera $U_1, U_2 \sim \mathcal{U}(0,1)$.
+2. Retorna $Z_1 = \sqrt{-2\ln U_1}\cos(2\pi U_2)$, $Z_2 = \sqrt{-2\ln U_1}\sin(2\pi U_2)$.
+3. Genera pares hasta completar `n` muestras.
+
+**`metodo_polar(n)` — Polar (Marsaglia):**
+1. Genera $V_1, V_2 \sim \mathcal{U}(-1,1)$ hasta que $W = V_1^2 + V_2^2 \le 1$.
+2. $Z_1 = V_1 \sqrt{-2\ln W/W}$, $Z_2 = V_2 \sqrt{-2\ln W/W}$.
+
+**`metodo_razon(n)` — Razón entre uniformes (Kinderman-Monahan):**
+1. Genera $U \sim \mathcal{U}(0,1)$, $V \sim \mathcal{U}(-a,a)$ con $a = \sqrt{2/e}$.
+2. Acepta si $V^2 \le -4U^2\ln U$, retorna $X = V/U$.
+
+**`ejercicio9()`:** Genera 10000 valores con cada método, calcula media, varianza y tiempo.
+
+---
+
+### ej10.py — Cauchy por razón entre uniformes
+
+**`cauchy_razon()`:**
+1. $C_f = \{(u,v): u>0, u^2+v^2 \le 1/\pi\}$ es un semicírculo de radio $1/\sqrt{\pi}$.
+2. Muestrea $(U,V)$ uniforme en el círculo unitario ($U>0$, $U^2+V^2\le 1$).
+3. Retorna $X = V/U \sim \text{Cauchy}(1)$ (el escalado $1/\sqrt{\pi}$ se cancela en el cociente).
+
+**`cauchy_lambda(lam)`:** Retorna $\lambda \cdot \text{Cauchy}(1)$ (propiedad de escala).
+
+**`ejercicio10()`:** Estima $P(-\lambda < X < \lambda) = 0.5$ para $\lambda = 1, 2.5, 0.3$ con 10000 muestras.
+
+---
+
+### ej11.py — Cauchy por transformada inversa
+
+**`cauchy_inversa(lam)`:**
+- FDA: $F(x) = \frac{1}{\pi}\arctan(x/\lambda) + \frac{1}{2}$.
+- Inversa: $X = \lambda \tan(\pi(U - 1/2))$ con $U \sim \mathcal{U}(0,1)$.
+
+**`ejercicio11()`:** 
+- Estima $P(-\lambda < X < \lambda)$ para $\lambda = 1, 2.5, 0.3$.
+- Compara eficiencia con método de razón entre uniformes (100k generaciones).
+
+---
+
+### ej12.py — Proceso de Poisson homogéneo
+
+**`poisson_process(lam, T)`:**
+1. Inicializa $t = 0$, lista vacía.
+2. Mientras $t < T$: genera $U \sim \mathcal{U}(0,1)$, $t \mathrel{+}= -\ln(U)/\lambda$, agrega $t$ si $\le T$.
+3. Retorna lista de tiempos de arribo.
+- Los tiempos entre arribos son $\text{Exp}(\lambda)$ independientes.
+
+**`ejercicio12(lam=5, T=1)`:** Genera y muestra los tiempos de arribo en 1 hora con tasa 5.
+
+---
+
+### ej13.py — Autobuses Poisson con capacidad aleatoria
+
+**`simulate_fans(lam=5, T=1)`:**
+1. Genera tiempos de arribo Poisson($\lambda$) hasta superar $T$.
+2. Para cada autobús: genera capacidad $\sim \mathcal{U}\{20,\dots,40\}$ (media 30).
+3. Retorna suma total de capacidades (total de aficionados).
+- Valor esperado: $E[N] \cdot E[\text{capacidad}] = 5 \cdot 30 = 150$.
+
+**`ejercicio13()`:** Simula 10000 horas y estima promedio de aficionados.
+
+---
+
+### ej14.py — Poisson no homogéneo por adelgazamiento (thinning)
+
+**`thinning_poisson(lam_func, T, lam_max)`:**
+1. Genera candidatos con Poisson homogéneo de tasa $\lambda_{\max}$.
+2. Acepta cada tiempo $t$ con probabilidad $\lambda(t)/\lambda_{\max}$.
+3. Retorna lista de tiempos aceptados.
+
+Funciones de intensidad:
+- **`lam1(t)`**: $3 + 4/(t+1)$ en $[0,3]$, $\lambda_{\max}=7$.
+- **`lam2(t)`**: $(t-2)^2 - 5t + 17$ en $[0,5]$, $\lambda_{\max}=17$.
+- **`lam3(t)`**: por tramos: $t/2 - 1$ en $[2,3]$, $1 - t/6$ en $[3,6]$, $\lambda_{\max}=0.5$.
+
+**`ejercicio14()`:** Ejecuta thinning para las 3 intensidades, muestra eventos y tiempos. Incluye sugerencias de mejora por subintervalos.

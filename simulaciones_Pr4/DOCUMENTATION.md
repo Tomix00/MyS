@@ -15,6 +15,23 @@
 
 ## Ejercicios
 
+### ej1.py — Problema de las coincidencias (rencontres)
+
+**`simulate_trial(n=100)`:**
+1. Genera una permutación aleatoria de `[1..n]` mediante Fisher-Yates.
+2. Cuenta cuántas posiciones `i` tienen `perm[i] == i+1` (coincidencias).
+3. Verifica si las primeras 10 cartas son coincidencias.
+4. Retorna `(matches, first_r_matches)`.
+
+**`ejercicio1(n_iter)`:**
+1. Ejecuta `simulate_trial()` `n_iter` veces.
+2. Estima E[X] (media de coincidencias), Var[X] (varianza muestral) y P(primeras 10 coinciden).
+3. Valores teóricos: E[X]=1, Var[X]=1, P(primeras 10)=1/(100·99···91).
+
+**Uso:** `python ej1.py` — ejecuta simulación para n=100, 1000, 10000, 100000 y compara con teóricos.
+
+---
+
 ### ej2.py — Aproximación de suma exponencial
 
 **`ejercicio2()`:**
